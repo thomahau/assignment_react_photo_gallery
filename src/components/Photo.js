@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, formatCaption, getTags } from '../helpers/photo';
+import { formatDate, formatCaption, getTags } from '../helpers/photos';
 
 const Photo = props => {
   const {
@@ -34,8 +34,8 @@ const Photo = props => {
             <span className="glyphicon glyphicon-heart" /> {likes} &nbsp;
             <span className="glyphicon glyphicon-comment" /> {comments}
           </p>
-          <p>Tags: {tagString}</p>
           <p>Filter: {filter}</p>
+          <p>Tags: {tagString}</p>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ export function formatCaption(caption) {
 
 export function getTags(tags) {
   if (!tags.length) {
-    return '';
+    return 'N/A';
   } else {
     return `#${tags.join(' #')}`;
   }

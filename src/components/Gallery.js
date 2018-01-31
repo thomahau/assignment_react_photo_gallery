@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
-import data from '../photos';
+import Alert from './elements/Alert';
+// import data from '../photos';
+import { filterByFilter, paginatePhotos } from '../helpers/gallery';
+
+const PANELS_PER_PAGE = 6;
 
 class Gallery extends Component {
   render() {
-    const photoPanels = data.map(photo => {
+    const { igFilter, searchQuery, page } = this.props;
+    let { photos } = this.props;
+    photos = filterByFilter(photos, igFilter);
+    //more filters here
+    const resultCount = photos.length;
+    photos = paginatePhotos(photos, page, PANELS_PER_PAGE);
+
+    const photoPanels = photos.map(photo => {
       let caption;
       if (photo.caption && photo.caption.text) {
         caption = photo.caption.text;
@@ -28,7 +39,12 @@ class Gallery extends Component {
         />
       );
     });
-    return <div className="row">{photoPanels}</div>;
+    return (
+      <div className="row">
+        <Alert>{`${resultCount} results`}</Alert>
+        {photoPanels}
+      </div>
+    );
   }
 }
 
