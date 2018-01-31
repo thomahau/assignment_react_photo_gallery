@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Gallery from './Gallery';
-import data from '../photos';
+// import data from '../photos';
 
 class FilterableGallery extends Component {
   render() {
