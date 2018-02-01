@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
 import Alert from './elements/Alert';
-// import data from '../photos';
-import { filterByFilter, paginatePhotos } from '../helpers/gallery';
-
-const PANELS_PER_PAGE = 6;
+import {
+  filterByFilter,
+  filterByQuery,
+  sortPhotos,
+  paginatePhotos
+} from '../helpers/gallery';
+import data from '../photos';
 
 class Gallery extends Component {
   render() {
-    const { igFilter, searchQuery, page } = this.props;
-    let { photos } = this.props;
-    photos = filterByFilter(photos, igFilter);
-    //more filters here
+    const { igFilter, searchQuery, sortDirection, page } = this.props;
+    let photos = filterByFilter(data, igFilter);
+    photos = filterByQuery(photos, searchQuery);
+    photos = sortPhotos(photos, sortDirection);
     const resultCount = photos.length;
-    photos = paginatePhotos(photos, page, PANELS_PER_PAGE);
+    photos = paginatePhotos(photos, page);
 
     const photoPanels = photos.map(photo => {
       let caption;

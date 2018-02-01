@@ -3,17 +3,18 @@ import Gallery from './Gallery';
 import InputGroup from './elements/InputGroup';
 import Input from './elements/Input';
 import Select from './elements/Select';
+import SortButton from './SortButton';
 import Pagination from './Pagination';
 import { getFilters } from '../helpers/search';
-import data from '../photos';
 
 class FilterableGallery extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
+      filters: getFilters(),
       igFilter: '',
       searchQuery: '',
-      filters: getFilters(),
+      sortDirection: 'Descending',
       page: 1
     };
   }
@@ -22,6 +23,19 @@ class FilterableGallery extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  };
+
+  onSortClick = e => {
+    e.preventDefault();
+    if (this.state.sortDirection === 'Descending') {
+      this.setState({
+        sortDirection: 'Ascending'
+      });
+    } else {
+      this.setState({
+        sortDirection: 'Descending'
+      });
+    }
   };
 
   onPreviousClick = e => {
@@ -41,7 +55,7 @@ class FilterableGallery extends Component {
   };
 
   render() {
-    const { igFilter, searchQuery, filters, page } = this.state;
+    const { filters, igFilter, searchQuery, sortDirection, page } = this.state;
 
     return (
       <form>
@@ -62,12 +76,16 @@ class FilterableGallery extends Component {
                 onChange={this.onChangeInput}
               />
             </InputGroup>
+            <SortButton
+              sortDirection={sortDirection}
+              onSortClick={this.onSortClick}
+            />
           </div>
         </div>
         <Gallery
-          photos={data}
           igFilter={igFilter}
           searchQuery={searchQuery}
+          sortDirection={sortDirection}
           page={page}
         />
         <Pagination
