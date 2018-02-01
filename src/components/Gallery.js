@@ -4,17 +4,26 @@ import Alert from './elements/Alert';
 import {
   filterByFilter,
   filterByQuery,
-  sortPhotos,
+  sortByTime,
+  sortByCategory,
   paginatePhotos
 } from '../helpers/gallery';
 import data from '../photos';
 
 class Gallery extends Component {
   render() {
-    const { igFilter, searchQuery, sortDirection, page } = this.props;
+    const {
+      igFilter,
+      searchQuery,
+      sortDirection,
+      sortCategory,
+      page,
+      onIconClick
+    } = this.props;
     let photos = filterByFilter(data, igFilter);
     photos = filterByQuery(photos, searchQuery);
-    photos = sortPhotos(photos, sortDirection);
+    photos = sortByTime(photos, sortDirection);
+    photos = sortByCategory(photos, sortCategory);
     const resultCount = photos.length;
     photos = paginatePhotos(photos, page);
 
@@ -39,6 +48,7 @@ class Gallery extends Component {
           filter={photo.filter}
           likes={photo.likes.count}
           comments={photo.comments.count}
+          onIconClick={onIconClick}
         />
       );
     });

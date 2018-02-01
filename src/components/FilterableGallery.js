@@ -10,6 +10,7 @@ class FilterableGallery extends Component {
       igFilter: '',
       searchQuery: '',
       sortDirection: 'Descending',
+      sortCategory: '',
       page: 1
     };
   }
@@ -33,8 +34,19 @@ class FilterableGallery extends Component {
     }
   };
 
+  onIconClick = e => {
+    if (e.target.className.includes('heart')) {
+      this.setState({
+        sortCategory: 'likes'
+      });
+    } else if (e.target.className.includes('comment')) {
+      this.setState({
+        sortCategory: 'comments'
+      });
+    }
+  };
+
   onPreviousClick = e => {
-    e.preventDefault();
     if (this.state.page >= 2) {
       this.setState({
         page: this.state.page - 1
@@ -43,14 +55,19 @@ class FilterableGallery extends Component {
   };
 
   onNextClick = e => {
-    e.preventDefault();
     this.setState({
       page: this.state.page + 1
     });
   };
 
   render() {
-    const { igFilter, searchQuery, sortDirection, page } = this.state;
+    const {
+      igFilter,
+      searchQuery,
+      sortDirection,
+      sortCategory,
+      page
+    } = this.state;
 
     return (
       <div className="row">
@@ -65,7 +82,9 @@ class FilterableGallery extends Component {
           igFilter={igFilter}
           searchQuery={searchQuery}
           sortDirection={sortDirection}
+          sortCategory={sortCategory}
           page={page}
+          onIconClick={this.onIconClick}
         />
         <Pagination
           page={page}

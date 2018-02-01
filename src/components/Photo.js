@@ -1,4 +1,5 @@
 import React from 'react';
+// import SortableIcon from './SortableIcon';
 import { formatDate, formatCaption, getTags } from '../helpers/photos';
 
 const Photo = props => {
@@ -12,7 +13,8 @@ const Photo = props => {
     tags,
     filter,
     likes,
-    comments
+    comments,
+    onIconClick
   } = props;
   const date = formatDate(createdAt);
   const formattedCaption = formatCaption(caption);
@@ -31,8 +33,18 @@ const Photo = props => {
           </h4>
           <p>{formattedCaption}</p>
           <p>
-            <span className="glyphicon glyphicon-heart" /> {likes} &nbsp;
-            <span className="glyphicon glyphicon-comment" /> {comments}
+            <span
+              className="glyphicon glyphicon-heart"
+              onClick={onIconClick}
+              role="button"
+            />{' '}
+            {likes} &nbsp;
+            <span
+              className="glyphicon glyphicon-comment"
+              onClick={onIconClick}
+              role="button"
+            />{' '}
+            {comments}
           </p>
           <p>Filter: {filter}</p>
           <p>Tags: {tagString}</p>

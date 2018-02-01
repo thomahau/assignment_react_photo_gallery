@@ -31,7 +31,7 @@ export function filterByQuery(photos, searchQuery) {
   return filteredPhotos;
 }
 
-export function sortPhotos(photos, sortDirection) {
+export function sortByTime(photos, sortDirection) {
   if (sortDirection === 'Descending') {
     photos.sort(function(a, b) {
       return b.created_time - a.created_time;
@@ -39,6 +39,22 @@ export function sortPhotos(photos, sortDirection) {
   } else {
     photos.sort(function(a, b) {
       return a.created_time - b.created_time;
+    });
+  }
+
+  return photos;
+}
+
+export function sortByCategory(photos, sortCategory) {
+  if (!sortCategory) {
+    return photos;
+  } else if (sortCategory === 'likes') {
+    photos.sort(function(a, b) {
+      return b.likes.count - a.likes.count;
+    });
+  } else if (sortCategory === 'comments') {
+    photos.sort(function(a, b) {
+      return b.comments.count - a.comments.count;
     });
   }
 
