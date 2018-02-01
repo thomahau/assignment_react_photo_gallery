@@ -44,6 +44,7 @@ class Gallery extends Component {
     });
     return (
       <div className="row">
+        <div className="clearfix" />
         <Alert>{`${resultCount} results`}</Alert>
         {photoPanels}
       </div>
